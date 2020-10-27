@@ -28,7 +28,7 @@ var PanelMenuButton = GObject.registerClass(
 
         get animationInterval() {
             // y = 5000/sqrt(x+30) - 400
-            return 5000 / Math.sqrt(this.cpu.utilization + 30) - 400;
+            return 5000 / Math.sqrt(this.cpu.utilization + 35) - 400;
         }
 
         _initUi() {
@@ -39,14 +39,6 @@ var PanelMenuButton = GObject.registerClass(
                 gicon: this.iconProvider.sleeping,
             }));
 
-            this.ui.set(
-                'label',
-                new St.Label({
-                    style_class: 'runcat-menu__label',
-                    y_expand: true,
-                    y_align: Clutter.ActorAlign.CENTER,
-                }),
-            );
 
             this.ui.forEach(element => box.add_child(element));
             this.ui.set('box', box);
@@ -67,7 +59,6 @@ var PanelMenuButton = GObject.registerClass(
                     );
 
                     const utilization = Math.ceil(this.cpu.utilization || 0);
-                    this.ui.get('label').set_text(`${utilization}%`);
                 }, 250),
             );
         }
